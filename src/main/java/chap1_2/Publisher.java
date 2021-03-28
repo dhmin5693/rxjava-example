@@ -1,4 +1,4 @@
-package chap01;
+package chap1_2;
 
 // 데이터 생산자
 public interface Publisher<T> {

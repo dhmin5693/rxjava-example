@@ -1,4 +1,4 @@
-package chap01;
+package chap1_2;
 
 // 생산자와 소비자 연결
 public interface Subscription {
