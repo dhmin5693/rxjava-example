@@ -2,7 +2,7 @@ package chap1.sub1_3;
 
 import io.reactivex.Flowable;
 
-public class MethodChainningSample {
+public class MethodChainingSample {
 
     public static void main(String[] args) {
 
