@@ -1,7 +1,7 @@
 package chap1.sub1_2;
 
 // 생산자와 소비자 연결
-public interface Subscription {
+interface Subscription {
 
     // 통지받을 데이터 개수 요청
     void request(long num);

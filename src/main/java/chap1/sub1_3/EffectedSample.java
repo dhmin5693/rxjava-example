@@ -21,7 +21,7 @@ public class EffectedSample {
 
         /*
          * 책 예제는 실행 중 계산 유형을 변경해버렸는데
-         * functional interface 스펙 상 type은 반드시 effective final이어야 한다.ㅛ
+         * functional interface 스펙 상 type은 반드시 effective final이어야 한다.
          */
         // type = CalcType.MULTIPLY;
         Thread.sleep(2000L);

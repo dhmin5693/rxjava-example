@@ -1,7 +1,7 @@
 package chap1.sub1_2;
 
 // 데이터 소비자
-public interface Subscriber<T> {
+interface Subscriber<T> {
 
     // 구독 시작 시 처리
     void onSubscribe(Subscription subscription);
