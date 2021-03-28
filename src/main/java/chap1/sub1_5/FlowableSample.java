@@ -2,8 +2,9 @@ package chap1.sub1_5;
 
 import io.reactivex.BackpressureStrategy;
 import io.reactivex.Flowable;
+import io.reactivex.FlowableSubscriber;
+import io.reactivex.annotations.NonNull;
 import io.reactivex.schedulers.Schedulers;
-import org.reactivestreams.Subscriber;
 import org.reactivestreams.Subscription;
 
 public class FlowableSample {
@@ -26,35 +27,37 @@ public class FlowableSample {
         }, BackpressureStrategy.BUFFER);
 
         flowable.observeOn(Schedulers.computation())
-                .subscribe(new Subscriber<>() {
-
-                    private Subscription subscription;
-
-                    @Override
-                    public void onSubscribe(Subscription s) {
-                        subscription = s;
-                        subscription.request(1L);
-                    }
-
-                    @Override
-                    public void onNext(String s) {
-                        String threadName = Thread.currentThread().getName();
-                        System.out.println(threadName + ": " + s);
-                        subscription.request(1L);
-                    }
-
-                    @Override
-                    public void onError(Throwable t) {
-                        t.printStackTrace();
-                    }
-
-                    @Override
-                    public void onComplete() {
-                        String threadName = Thread.currentThread().getName();
-                        System.out.println(threadName + ": complete");
-                    }
-                });
+                .subscribe(new SubscribeImpl());
 
         Thread.sleep(1000L);
+    }
+
+    private static class SubscribeImpl implements FlowableSubscriber<String> {
+
+        private Subscription subscription;
+
+        @Override
+        public void onSubscribe(@NonNull Subscription s) {
+            subscription = s;
+            subscription.request(1L);
+        }
+
+        @Override
+        public void onNext(String s) {
+            String threadName = Thread.currentThread().getName();
+            System.out.println(threadName + ": " + s);
+            subscription.request(1L);
+        }
+
+        @Override
+        public void onError(Throwable t) {
+            t.printStackTrace();
+        }
+
+        @Override
+        public void onComplete() {
+            String threadName = Thread.currentThread().getName();
+            System.out.println(threadName + ": complete");
+        }
     }
 }
