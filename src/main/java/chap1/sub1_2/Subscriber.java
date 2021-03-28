@@ -1,4 +1,4 @@
-package chap1_2;
+package chap1.sub1_2;
 
 // 데이터 소비자
 public interface Subscriber<T> {
