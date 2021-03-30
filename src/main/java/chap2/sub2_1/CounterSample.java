@@ -22,6 +22,7 @@ public class CounterSample {
         Future<Boolean> future2 = executorService.submit(task, true);
 
         if (future1.get() && future2.get()) {
+            // DO NOT PRINT 20000
             System.out.println(counter.get());
         } else {
             System.out.println("fail");
