@@ -3,12 +3,15 @@ package chap2.sub2_1;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Stream;
 
 public class CounterSample {
 
     public static void main(String[] args) throws ExecutionException, InterruptedException {
-        var counter = new Counter();
+
+//        Counter counter = new VolatileCounter();
+        Counter counter = new AtomicCounter();
 
         Runnable task = () ->
             Stream.iterate(0, i -> i < 10000, i -> i + 1)
@@ -31,16 +34,38 @@ public class CounterSample {
         executorService.shutdown();
     }
 
-    private static class Counter {
+    private interface Counter {
+        void increment();
+        int get();
+    }
+
+    private static class VolatileCounter implements Counter {
 
         private volatile int count;
 
-        void increment() {
+        @Override
+        public void increment() {
             count++;
         }
 
-        int get() {
+        @Override
+        public int get() {
             return count;
+        }
+    }
+
+    private static class AtomicCounter implements Counter {
+
+        private final AtomicInteger count = new AtomicInteger();
+
+        @Override
+        public void increment() {
+            count.incrementAndGet();
+        }
+
+        @Override
+        public int get() {
+            return count.get();
         }
     }
 }
