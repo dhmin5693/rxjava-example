@@ -11,6 +11,8 @@ class CustomSubscriber<T> implements Subscriber<T> {
 
     @Override
     public void onNext(T t) {
+
+        // Unsafe in multi thread
         if (list.size() < 5) {
             list.add(t);
         }
