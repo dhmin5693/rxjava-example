@@ -1,13 +1,13 @@
 package chap3.sub3_2;
 
-import common.VolatileCounter;
+import common.NonAtomicCounter;
 import io.reactivex.Flowable;
 import io.reactivex.schedulers.Schedulers;
 
 public class CounterSample {
 
     public static void main(String[] args) throws InterruptedException {
-        var counter = new VolatileCounter();
+        var counter = new NonAtomicCounter();
 
         increaseCounter(counter);
         increaseCounter(counter);
@@ -15,7 +15,7 @@ public class CounterSample {
         Thread.sleep(1000L);
     }
 
-    private static void increaseCounter(VolatileCounter counter) {
+    private static void increaseCounter(NonAtomicCounter counter) {
         Flowable.range(1, 10000)
                 .subscribeOn(Schedulers.computation())
                 .observeOn(Schedulers.computation())

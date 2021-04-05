@@ -1,6 +1,6 @@
 package common;
 
-public class VolatileCounter implements Counter {
+public class NonAtomicCounter implements Counter {
 
     private volatile int count;
 
