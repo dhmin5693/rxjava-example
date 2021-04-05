@@ -1,5 +1,8 @@
 package chap2.sub2_1;
 
+import common.AtomicCounter;
+import common.Counter;
+
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
@@ -32,40 +35,5 @@ public class CounterSample {
         }
 
         executorService.shutdown();
-    }
-
-    private interface Counter {
-        void increment();
-        int get();
-    }
-
-    private static class VolatileCounter implements Counter {
-
-        private volatile int count;
-
-        @Override
-        public void increment() {
-            count++;
-        }
-
-        @Override
-        public int get() {
-            return count;
-        }
-    }
-
-    private static class AtomicCounter implements Counter {
-
-        private final AtomicInteger count = new AtomicInteger();
-
-        @Override
-        public void increment() {
-            count.incrementAndGet();
-        }
-
-        @Override
-        public int get() {
-            return count.get();
-        }
     }
 }
