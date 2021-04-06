@@ -2,15 +2,17 @@ package chap3.sub3_3;
 
 import io.reactivex.BackpressureStrategy;
 import io.reactivex.Flowable;
+import lombok.extern.slf4j.Slf4j;
 import org.reactivestreams.Subscriber;
 import org.reactivestreams.Subscription;
 
+@Slf4j
 public class RetrySample {
 
     public static void main(String[] args) throws Exception {
 
         var flowable = Flowable.<Integer>create(emitter -> {
-            System.out.println("start flowable");
+            log.info("start flowable");
 
             for (int i = 1; i <= 3; i++) {
                 if (i == 2) {
@@ -20,9 +22,9 @@ public class RetrySample {
             }
 
             emitter.onComplete();
-            System.out.println("end flowable");
+            log.info("end flowable");
         }, BackpressureStrategy.BUFFER)
-                               .doOnSubscribe(s -> System.out.println("Flowable::doOnSubscription"))
+                               .doOnSubscribe(s -> log.info("Flowable::doOnSubscription"))
                                .retry(2);
 
         flowable.subscribe(new IntegerSubscribe());
@@ -32,23 +34,23 @@ public class RetrySample {
 
         @Override
         public void onSubscribe(Subscription s) {
-            System.out.println("IntegerSubscribe::onSubscribe");
+            log.info("IntegerSubscribe::onSubscribe");
             s.request(Long.MAX_VALUE);
         }
 
         @Override
         public void onNext(Integer data) {
-            System.out.println("data: " + data);
+            log.debug("data: " + data);
         }
 
         @Override
         public void onError(Throwable t) {
-            System.out.println("error: " + t);
+            log.error("error: " + t);
         }
 
         @Override
         public void onComplete() {
-            System.out.println("IntegerSubscribe::onComplete");
+            log.info("IntegerSubscribe::onComplete");
         }
     }
 }
