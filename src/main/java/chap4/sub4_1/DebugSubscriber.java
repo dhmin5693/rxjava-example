@@ -1,5 +1,6 @@
-package chap3.sub3_3;
+package chap4.sub4_1;
 
+import io.reactivex.Flowable;
 import io.reactivex.subscribers.DisposableSubscriber;
 import lombok.extern.slf4j.Slf4j;
 
@@ -17,25 +18,27 @@ public class DebugSubscriber<T> extends DisposableSubscriber<T> {
         this.label = label;
     }
 
-    private String getCurrentThreadName() {
-        return Thread.currentThread().getName();
-    }
-
     private String getMiddleMessage() {
-        return label != null ? ": " + label : "";
+        return label != null ? label + ": " : "";
     }
 
     @Override
     public void onNext(T data) {
-        System.out.println(getCurrentThreadName() + getMiddleMessage() + ": " + data);
+        log.debug("{}{}", getMiddleMessage(), data);
     }
 
     @Override
     public void onError(Throwable t) {
-        System.out.println(getCurrentThreadName() + getMiddleMessage() + ": " + t);
+        log.error("{}{}", getMiddleMessage(), t);
     }
 
     @Override
     public void onComplete() {
+        log.info("{}{}", getMiddleMessage(), "complete");
+    }
+
+    public static void main(String[] args) {
+        Flowable.just(1, 2, 3, 4, 5)
+                .subscribe(new DebugSubscriber<>("tester"));
     }
 }
