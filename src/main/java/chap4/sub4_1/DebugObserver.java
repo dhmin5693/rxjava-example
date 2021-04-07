@@ -1,6 +1,5 @@
 package chap4.sub4_1;
 
-import io.reactivex.Flowable;
 import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.annotations.NonNull;
