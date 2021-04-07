@@ -1,4 +1,4 @@
-package chap4.sub4_1;
+package chap4;
 
 import io.reactivex.Flowable;
 import io.reactivex.subscribers.DisposableSubscriber;
