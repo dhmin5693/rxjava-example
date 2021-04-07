@@ -6,6 +6,7 @@ import io.reactivex.Flowable;
 public class FromCallableSample {
     public static void main(String[] args) {
         Flowable.fromCallable(System::currentTimeMillis)
+                .repeat(5)
                 .subscribe(new DebugSubscriber<>("call"));
     }
 }
