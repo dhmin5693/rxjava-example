@@ -18,23 +18,23 @@ public class DebugSubscriber<T> extends DisposableSubscriber<T> {
         this.label = label;
     }
 
-    private String getMiddleMessage() {
+    private String getLabel() {
         return label != null ? label + ": " : "";
     }
 
     @Override
     public void onNext(T data) {
-        log.debug("{}{}", getMiddleMessage(), data);
+        log.debug("{}{}", getLabel(), data);
     }
 
     @Override
     public void onError(Throwable t) {
-        log.error("{}{}", getMiddleMessage(), t);
+        log.error("{}{}", getLabel(), t);
     }
 
     @Override
     public void onComplete() {
-        log.info("{}{}", getMiddleMessage(), "complete");
+        log.info("{}{}", getLabel(), "complete");
     }
 
     public static void main(String[] args) {

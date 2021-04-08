@@ -20,28 +20,28 @@ public class DebugObserver<T> implements Observer<T> {
         this.label = label;
     }
 
-    private String getMiddleMessage() {
+    private String getLabel() {
         return label != null ? label + ": " : "";
     }
 
     @Override
     public void onSubscribe(@NonNull Disposable d) {
-        log.info("{}{}, {}", getMiddleMessage(), "subscribe", d);
+        log.info("{}{}, {}", getLabel(), "subscribe", d);
     }
 
     @Override
     public void onNext(@NonNull T data) {
-        log.debug("{}{}", getMiddleMessage(), data);
+        log.debug("{}{}", getLabel(), data);
     }
 
     @Override
     public void onError(@NonNull Throwable e) {
-        log.error("{}{}", getMiddleMessage(), e);
+        log.error("{}{}", getLabel(), e);
     }
 
     @Override
     public void onComplete() {
-        log.info("{}{}", getMiddleMessage(), "complete");
+        log.info("{}{}", getLabel(), "complete");
     }
 
     public static void main(String[] args) {
