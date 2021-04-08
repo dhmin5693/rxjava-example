@@ -5,7 +5,7 @@ import io.reactivex.Flowable;
 
 public class RangeSample {
     public static void main(String[] args) {
-        Flowable.range(10, 3)
-                .subscribe(new DebugSubscriber<>());
+        Flowable.range(1, 5)
+                .subscribe(new DebugSubscriber<>("range"));
     }
 }
